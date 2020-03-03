@@ -2,9 +2,9 @@ from __future__ import print_function
 
 
 class bcolors:
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
+    PASSED = '\033[32m'
+    FAILED = '\033[91m'
+    ENDC = '\033[0m'
 
 
 class AssertException(Exception):
@@ -12,13 +12,13 @@ class AssertException(Exception):
 
 
 def format_message(message):
-    return message.replace("\n", "<:LF:>")
+    return message
 
 
 def display(type, message, label="", mode=""):
-    color = bcolors.FAIL if type == 'FAILED' else bcolors.OKGREEN
+    color = bcolors.FAILED if type == 'FAILED' else bcolors.PASSED
     spacer = '\n-------------------------------\n'
-    print((color + spacer + "<{0}:{1}:{2}>{3}" + spacer).format(
+    print((color + spacer + "<{0}:{1}:{2}>{3}" + spacer + bcolors.ENDC).format(
         type.upper(), mode.upper(), label, format_message(message)))
 
 
